@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+    - Maskinen må lage et tilfeldig tall, 1-100 ?
+    - Brukeren må kunne skrive inn hvilket tall som gjettes
+    - En knapp for å "sende" tallet
+    - Finne ut om tallet var riktig, for høyt eller for lavt
+    - tilbakemelding til brukeren, sktive ut en beskjed
+
+    -->
+    <button id="cheat">Click for number</button>
+    <p id="correct_value"></p>
+    <h1>Guess the number <br> Verdier 1-10</h1>
+    <h2>You gotten the right number this many times!</h2>
+    <p id="correct_count"></p><br>
+    <h2>You have guessed wrong this many times!</h2>
+    <p id="g_count"></p><br>
+    <p id="svar"></p>
+
+    
+
+
+    <input id="input" type="text">
+    <br><button id="submit_guess">Submit</button>
+
+    <script>
+        var EL_cheat_button = document.querySelector('#cheat')
+        var EL_button = document.querySelector('#submit_guess')
+        var input = document.querySelector('#input')
+        var EL_svar = document.querySelector('#svar')
+        var tall = Math.floor(Math.random () * 10);
+        var guesses = 0
+        var correct = 0
+        console.log(tall)
+        EL_button.addEventListener('click', sjekk_tekst )
+        EL_button.addEventListener('click', counting )
+        EL_cheat_button.addEventListener('click', unlock )
+        input.addEventListener('click', empty_box )
+
+        function unlock (){
+            g_count.innerHTML = guesses
+            correct_value.innerHTML = tall
+        }
+        function counting (){
+            guesses += 1
+            g_count.innerHTML = guesses
+        }
+        function empty_box (){
+            input.value = ''
+        }
+
+        function sjekk_tekst(){
+            if (input.value == tall) {
+                EL_svar.innerHTML = 'Rett verdi'
+                input.value = 'Rett verdi'
+                guesses = 0
+                correct +=1
+                tall = Math.floor(Math.random () * 10);
+                console.log(tall)
+            } else if (input.value > tall) {
+                EL_svar.innerHTML = 'For høy verdi'
+                input.value = 'For høy verdi'
+            } else if (input.value < tall ) {
+                EL_svar.innerHTML = 'For lav verdi'
+                input.value = 'For lav verdi'
+            }
+            correct_count.innerHTML = correct
+        }
+
+        
+    </script>
+
+
+
+
+
+</body>
+</html>
