@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" href="style.css">
+    <div class="Pos_retry">
+        <h1 id="died">You used up your 10 guesses</h1>
+        <div class="retry_button">
+            <button id="retry">Retry</button>
+        </div>
+    </div>
+    <script>
+        var EL_button_retry = document.querySelector("#retry")
+        EL_button_retry.addEventListener('click', retry)
+
+        function retry(){
+            window.location.href = "guess.html";
+        }
+    </script>
+</body>
+</html>

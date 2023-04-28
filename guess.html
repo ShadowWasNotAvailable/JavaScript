@@ -54,10 +54,8 @@
         function counting (){
             
             g_count.innerHTML = guesses
-            if (guesses == 9) {
-            correct = 0
-            guesses = 0
-            guesses -= 1
+            if (guesses == 10) {
+            window.location.href = "You_died.html";
         }
         }
         function empty_box (){
@@ -82,6 +80,7 @@
                 input.value = 'For lav verdi'
                 guesses += 1
             }
+            
             correct_count.innerHTML = correct
         }
 
