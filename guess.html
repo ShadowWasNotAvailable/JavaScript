@@ -17,13 +17,15 @@
 
     -->
 
-    <h1>Guess the number <br> Verdier 1-10 <br> Du har 10 forsøk</h1>    
+    <h1>Guess the number <br> Verdier 0-10 <br> Du har 10 forsøk</h1>    
     <button id="cheat">Click for number (Cheat)</button>
     <p id="correct_value"></p>
     <h2>You gotten the right number this many times!</h2>
     <p id="correct_count"></p><br>
     <h2>You have guessed wrong this many times!</h2>
     <p id="g_count"></p><br>
+    <h2>You have this much time left</h2>
+    <h3 id="timer">Time: 0 sec</h2>
     <p id="svar"></p>
 
     
@@ -31,24 +33,44 @@
 
     <input class="input_guess" id="input" type="text" value="Guess here">
     <br><button id="submit_guess">Submit</button>
+    
+    <br><button id="pause">Pause</button>
 
     <script>
         var EL_cheat_button = document.querySelector('#cheat')
         var EL_button = document.querySelector('#submit_guess')
+        var El_button_Pause = document.querySelector('#pause')
+        var EL_button_unpause = document.querySelector('#unpause')
         var input = document.querySelector('#input')
         var EL_svar = document.querySelector('#svar')
+        var EL_timer = document.querySelector('#timer')
         var tall = Math.floor(Math.random () * 10);
         var guesses = 0
         var correct = 0
+        var teller = 0
+        var start = false
+        var unpause = false
+        
         console.log(tall)
         EL_button.addEventListener('click', sjekk_tekst )
         EL_button.addEventListener('click', counting )
         EL_cheat_button.addEventListener('click', unlock )
+        El_button_Pause.addEventListener('click' , Pauseing)
         input.addEventListener('click', empty_box )
 
 
+        function Pauseing (){
+            if (start == false){
+                start = true
+                El_button_Pause.innerHTML = "Pause"
+                input.disabled = false
+            } else{
+                start = false
+                El_button_Pause.innerHTML = "Unpause"
+                input.disabled = true
+            }
+        }
         function unlock (){
-            g_count.innerHTML = guesses
             correct_value.innerHTML = tall
         }
         function counting (){
@@ -58,9 +80,22 @@
             window.location.href = "You_died.html";
         }
         }
+        function myTimer(){
+            if (start == true){
+                teller++
+                EL_timer.innerHTML = "Tid: " + teller + " sec"
+                if (teller > 119)
+                window.location.href = "You_died_timer.html";
+            }
+        }
+        //Fjerner aldt som er skrevet i input når du trykker
         function empty_box (){
             input.value = ''
         }
+
+        
+
+        setInterval(myTimer, 1000)
 
         function sjekk_tekst(){
             if (input.value == tall) {
@@ -69,18 +104,21 @@
                 
                 guesses = 0
                 correct +=1
+                teller -= 15
                 tall = Math.floor(Math.random () * 10);
                 console.log(tall)
             } else if (input.value > tall) {
                 EL_svar.innerHTML = 'For høy verdi'
                 input.value = 'For høy verdi'
                 guesses += 1
+                teller += 5
             } else if (input.value < tall ) {
                 EL_svar.innerHTML = 'For lav verdi'
                 input.value = 'For lav verdi'
                 guesses += 1
+                teller += 5
             }
-            
+            start = true
             correct_count.innerHTML = correct
         }
 

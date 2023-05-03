@@ -7,44 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Min overskrift</h1>
-    <h3 id="mitt_tall"></h3>
-    <p id="p_tag"></p>
-    <p class="p_class">Litt mer og annen tekst om tall</p>
-
-    <button id="button">Klikk</button>
-
+    <div class="Pos_retry">
+        <h1>Welcome to the guessing game! <br> Press to start!</h1>
+        <button id="Start">Start</button>
+    </div>
+    <link rel="stylesheet" href="style.css">
     <script>
-        var EL_p_tag = document.querySelector('#p_tag')
-        var EL_mitt_tall = document.querySelector('#mitt_tall')
-        var EL_button = document.querySelector('#button')
+        var start_button = document.querySelector('#Start')
+        start_button.addEventListener('click' , starting)
 
-        var tall = Math.floor(Math.random () * 10);
-        function skriv_tekst(){
-            console.log(tall)
-            var tall = Math.floor(Math.random () * 10);
-
-            if (tall > 5){
-                EL_p_tag.innerHTML = 'Tall er høyere en 5'
-            }   else if (tall < 5){
-                EL_p_tag.innerHTML = 'Tall er lavere en 5'
-            }
-            EL_mitt_tall.innerHTML = tall
+        function starting(){
+            window.location.href = "guess.html"
         }
-
-        // velge button
-        EL_button.addEventListener('click', skriv_tekst )
-        
-
-
-        var tekst = "potet";
-        //document.write(tekst)
-        console.log("Dette er en console beskjed")
-        var hemmelig_passord = "Passord123"
-    </script>  
+    </script>
 </body>
 </html>
-
-
-
-
