@@ -16,10 +16,17 @@
     - tilbakemelding til brukeren, sktive ut en beskjed
 
     -->
-
+    
     <h1>Guess the number <br> Verdier 0-10 <br> Du har 10 forsøk</h1>    
-    <button id="cheat">Click for number (Cheat)</button>
+    <!--Dev tools-->
+    <button id="cheat">Click for cheats</button>
+    <button id="pluss_time">+10 time</button>
+    <button id="pluss_guess">+1 guesses</button>
+    <button id="pluss_correct">+1 correct</button>
     <p id="correct_value"></p>
+
+    
+
     <h2>You gotten the right number this many times!</h2>
     <p id="correct_count"></p><br>
     <h2>You have guessed wrong this many times!</h2>
@@ -30,7 +37,6 @@
 
     
 
-
     <input class="input_guess" id="input" type="text" value="Guess here">
     <br><button id="submit_guess">Submit</button>
     
@@ -39,10 +45,17 @@
     <audio autoplay src=""></audio>
 
     <script>
+        //Knapper
         var EL_cheat_button = document.querySelector('#cheat')
         var EL_button = document.querySelector('#submit_guess')
         var El_button_Pause = document.querySelector('#pause')
         var EL_button_unpause = document.querySelector('#unpause')
+        
+        var EL_button_add_time = document.querySelector('#pluss_time')
+        var EL_button_add_guesses = document.querySelector('#pluss_guess')
+        var EL_button_add_correct = document.querySelector('#pluss_correct')
+        
+        //Andre ting
         var input = document.querySelector('#input')
         var EL_svar = document.querySelector('#svar')
         var EL_timer = document.querySelector('#timer')
@@ -52,15 +65,36 @@
         var teller = 0
         var start = false
         var unpause = false
+        var Cheat = false
         
-        console.log(tall)
+        //Skjekker om du klikker op knappen så gjør den en funksjon
         EL_button.addEventListener('click', sjekk_tekst )
         EL_button.addEventListener('click', counting )
         EL_cheat_button.addEventListener('click', unlock )
-        El_button_Pause.addEventListener('click' , Pauseing)
+        El_button_Pause.addEventListener('click', Pauseing)
+        EL_button_add_time.addEventListener('click', PlussT)
+        EL_button_add_guesses.addEventListener('click', PlussG)
+        EL_button_add_correct.addEventListener('click', PlussC)
         input.addEventListener('click', empty_box )
 
+        EL_button_add_time.style.display = 'none';
+        EL_button_add_guesses.style.display = 'none';
+        EL_button_add_correct.style.display = 'none';
 
+        
+        
+        
+        function PlussT(){
+            teller += 10
+        }
+        function PlussG(){
+            guesses += 1
+            sjekk_tekst()
+        }
+        function PlussC(){
+            correct += 1
+            sjekk_tekst()
+        }
         function Pauseing (){
             if (start == false){
                 start = true
@@ -73,11 +107,13 @@
             }
         }
         function unlock (){
-            correct_value.innerHTML = tall
+            Cheat = true
+            correct_value.innerHTML = "Tallet er " + tall
+            EL_button_add_time.style.display = 'block';
+            EL_button_add_guesses.style.display = 'block';
+            EL_button_add_correct.style.display = 'block';
         }
         function counting (){
-            
-            g_count.innerHTML = guesses
             if (guesses == 10) {
             window.location.href = "You_died.html";
         }
@@ -120,8 +156,12 @@
                 guesses += 1
                 teller += 5
             }
+            if (Cheat == true){
+                correct_value.innerHTML = "Tallet er " + tall
+            }
             start = true
             correct_count.innerHTML = correct
+            g_count.innerHTML = guesses
         }
 
         
