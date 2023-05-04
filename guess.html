@@ -67,6 +67,7 @@
         var unpause = false
         var Cheat = false
         
+        
         //Skjekker om du klikker op knappen så gjør den en funksjon
         EL_button.addEventListener('click', sjekk_tekst )
         EL_button.addEventListener('click', counting )
@@ -76,11 +77,14 @@
         EL_button_add_guesses.addEventListener('click', PlussG)
         EL_button_add_correct.addEventListener('click', PlussC)
         input.addEventListener('click', empty_box )
-
+        
+        //misc stuff
         EL_button_add_time.style.display = 'none';
         EL_button_add_guesses.style.display = 'none';
         EL_button_add_correct.style.display = 'none';
-
+        correct_count.innerHTML = correct
+        g_count.innerHTML = guesses
+        setInterval(myTimer, 1000)
         
         
         
@@ -112,6 +116,7 @@
             EL_button_add_time.style.display = 'block';
             EL_button_add_guesses.style.display = 'block';
             EL_button_add_correct.style.display = 'block';
+
         }
         function counting (){
             if (guesses == 10) {
@@ -133,7 +138,7 @@
 
         
 
-        setInterval(myTimer, 1000)
+        
 
         function sjekk_tekst(){
             if (input.value == tall) {
