@@ -68,7 +68,7 @@
         var Cheat = false
         
         
-        //Skjekker om du klikker op knappen så gjør den en funksjon
+        //Skjekker om du klikker på knappen så gjør den en funksjon
         EL_button.addEventListener('click', sjekk_tekst )
         EL_button.addEventListener('click', counting )
         EL_cheat_button.addEventListener('click', unlock )
@@ -85,6 +85,7 @@
         correct_count.innerHTML = correct
         g_count.innerHTML = guesses
         setInterval(myTimer, 1000)
+        setInterval(counting, 1000)
         
         
         
@@ -119,7 +120,7 @@
 
         }
         function counting (){
-            if (guesses == 10) {
+            if (guesses > 9) {
             window.location.href = "You_died.html";
         }
         }
