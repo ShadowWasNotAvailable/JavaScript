@@ -7,12 +7,85 @@
     <title>Document</title>
 </head>
 <body>
+    <link rel="stylesheet" href="style.css">
     <!--
-        En button/cookie som gir en cookie value per klikk
+        En button/muesli bar som gir en muesli bar value per klikk
+        Lage upgrades som gjør at du får flere muesli barer per klikk
+        Lage slaver som lager muesli bar for meg
+        Critical klikk
+        Pop up multiplier
+
 
     -->
+    <h1 id="muesli_value">0</h1><br>
+    <img id="muesli_bar" src="img/salt_mush.png"></img><br>
+    <button id="muesli_upg1"></button>
+    <button id="muesli_slave"></button>
     <script>
+        var EL_muesli_clicker = document.querySelector('#muesli_bar')
+        var EL_muesli_upg1 = document.querySelector('#muesli_upg1')
+        var EL_muesli_slave = document.querySelector('#muesli_slave')
+        var TXT_muesli_value = document.querySelector('#muesli_value')
         
+        EL_muesli_clicker.addEventListener('click', gib_muesli)
+        EL_muesli_upg1.addEventListener('click', upgrade1)
+        EL_muesli_slave.addEventListener('click', slave)
+
+        
+        upgrade1_cost = 100
+        upgrade1_ammount = 1
+
+        slave_cost = 1000
+        slave_dps = 100
+        slave_profit = 0
+        owner = false
+
+        muesli_money = 1000
+        muesli_dps = 1
+        TXT_muesli_value.innerHTML = muesli_money
+        EL_muesli_upg1.innerHTML = "Upgrade <br>" + "Cost: " + upgrade1_cost + "<br>DPS: " + upgrade1_ammount
+        EL_muesli_slave.innerHTML = "Slave <br>" + "Cost: " + slave_cost + "<br>DPS: " + slave_dps
+
+        function gib_muesli(){
+            muesli_money += muesli_dps
+            TXT_muesli_value.innerHTML = muesli_money
+            console.log(muesli_money)
+        }
+
+        function upgrade1(){
+            if (muesli_money > upgrade1_cost - 1){
+                muesli_dps += upgrade1_ammount
+                muesli_money -= upgrade1_cost
+                upgrade1_cost *= 2
+                upgrade1_ammount *= 2
+                EL_muesli_upg1.innerHTML = "Upgrade <br>" + "Cost: " + upgrade1_cost + "<br>DPS: " + upgrade1_ammount
+                TXT_muesli_value.innerHTML = muesli_money
+            }
+        }
+        
+        function slave(){
+            if (muesli_money > slave_cost - 1){
+                muesli_money -= slave_cost
+                slave_cost *= 2
+                slave_profit += slave_dps
+                EL_muesli_slave.innerHTML = "Slave <br>" + "Cost: " + slave_cost + "<br>DPS: " + slave_dps
+                TXT_muesli_value.innerHTML = muesli_money
+                owner = true
+                }
+            if (muesli_money > slave_cost - 1 , owner = true){
+                slave_dps += 100
+                EL_muesli_slave.innerHTML = "Slave <br>" + "Cost: " + slave_cost + "<br>DPS: " + slave_dps
+            }
+        }
+        function slave_profits(){
+            if (owner == true){
+                muesli_money += slave_profit
+                TXT_muesli_value.innerHTML = muesli_money
+            }
+        }
+
+        setInterval(slave_profits, 1000)
     </script>
 </body>
 </html>
+
