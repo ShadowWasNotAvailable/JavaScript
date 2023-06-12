@@ -18,74 +18,35 @@
 
     -->
     <h1 id="muesli_value">0</h1><br>
-    <img id="muesli_bar" src="img/salt_mush.png"></img><br>
-    <button id="muesli_upg1"></button>
-    <button id="muesli_slave"></button>
-    <script>
-        var EL_muesli_clicker = document.querySelector('#muesli_bar')
-        var EL_muesli_upg1 = document.querySelector('#muesli_upg1')
-        var EL_muesli_slave = document.querySelector('#muesli_slave')
-        var TXT_muesli_value = document.querySelector('#muesli_value')
+    <div class="Content">
+        <div class="muesli_img">
+            <img id="muesli_bar" draggable="false" src="img/salt_mush.png"></img><br>
+        </div>
         
-        EL_muesli_clicker.addEventListener('click', gib_muesli)
-        EL_muesli_upg1.addEventListener('click', upgrade1)
-        EL_muesli_slave.addEventListener('click', slave)
-
+        <div class="upgrade_buttons">
+            <div class="upgrades_box">
+                <h2>Upgrades</h2>
+                <div class="upgrades">
+                    <button id="muesli_upg1"></button>
+                    <button id="muesli_upg2"></button>
+                </div>
+            </div>
+            
+            
+            <div class="slave_box">
+                <h2>Slaves</h2>
+                <div class="slave">
+                    <button id="muesli_wslave"></button>
+                    <button id="muesli_nslave"></button>
+                    <button id="muesli_Mega_slave"></button>
+                </div>
+            </div>
+            <h2 id="tot_dpc">Total DPC: 0</h2>
+            <h2 id="tot_dps">Total DPS: 0</h2>
+        </div>
         
-        upgrade1_cost = 100
-        upgrade1_ammount = 1
-
-        slave_cost = 1000
-        slave_dps = 100
-        slave_profit = 0
-        owner = false
-
-        muesli_money = 1000
-        muesli_dps = 1
-        TXT_muesli_value.innerHTML = muesli_money
-        EL_muesli_upg1.innerHTML = "Upgrade <br>" + "Cost: " + upgrade1_cost + "<br>DPS: " + upgrade1_ammount
-        EL_muesli_slave.innerHTML = "Slave <br>" + "Cost: " + slave_cost + "<br>DPS: " + slave_dps
-
-        function gib_muesli(){
-            muesli_money += muesli_dps
-            TXT_muesli_value.innerHTML = muesli_money
-            console.log(muesli_money)
-        }
-
-        function upgrade1(){
-            if (muesli_money > upgrade1_cost - 1){
-                muesli_dps += upgrade1_ammount
-                muesli_money -= upgrade1_cost
-                upgrade1_cost *= 2
-                upgrade1_ammount *= 2
-                EL_muesli_upg1.innerHTML = "Upgrade <br>" + "Cost: " + upgrade1_cost + "<br>DPS: " + upgrade1_ammount
-                TXT_muesli_value.innerHTML = muesli_money
-            }
-        }
-        
-        function slave(){
-            if (muesli_money > slave_cost - 1){
-                muesli_money -= slave_cost
-                slave_cost *= 2
-                slave_profit += slave_dps
-                EL_muesli_slave.innerHTML = "Slave <br>" + "Cost: " + slave_cost + "<br>DPS: " + slave_dps
-                TXT_muesli_value.innerHTML = muesli_money
-                owner = true
-                }
-            if (muesli_money > slave_cost - 1 , owner = true){
-                slave_dps += 100
-                EL_muesli_slave.innerHTML = "Slave <br>" + "Cost: " + slave_cost + "<br>DPS: " + slave_dps
-            }
-        }
-        function slave_profits(){
-            if (owner == true){
-                muesli_money += slave_profit
-                TXT_muesli_value.innerHTML = muesli_money
-            }
-        }
-
-        setInterval(slave_profits, 1000)
-    </script>
+    </div>
+    <script src="clickerjava.js"></script>
 </body>
 </html>
 

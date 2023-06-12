@@ -1,6 +1,6 @@
 h1{
     font-size: 50px;
-    color: #fff;
+    color: white;
     text-transform: uppercase;
     font-weight: 300;
     text-align: center;
@@ -77,10 +77,11 @@ h1{
   button {
     color: white;
     background-color: transparent;
-    border-color: #296d91;
+    border-color: #FF3131;
     border-radius: 10px;
     border-width: 3px;
     margin-top: 5px;
+    margin-right: 5px;
   }
 
   @keyframes move-it {
@@ -95,11 +96,69 @@ h1{
   body {
     background: repeating-linear-gradient(
     90deg,
-    #296d91,
-    #296d91 5%,
-    #255e7c 5%,
-    #255e7c 10%
+    #0c0000,
+    #FF3131 5%,
+    #000000 5%,
+    #FF3131 10%
   );
     background-size: 350px 350px;
     animation: move-it 10s linear infinite;
   }
+
+
+
+.upgrade_buttons {
+  width: 7000px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+  
+.muesli_img {
+  display: flex;
+  justify-content: center;
+  border: 5px solid #FF3131;
+  width: 750px;
+  height: 300px;
+  margin-left: 20px;
+}
+
+.slave_box{
+  background-color: darkred;
+  background-size: auto;
+  margin-top: 5px;
+  width: 300px;
+}
+.slave {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  width: 1000px;
+  height: 100px;
+  padding: 5px;
+}
+.upgrades_box{
+  background: border-box;
+  width: 300px;
+  background-color: darkred;
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  margin-top: 5px;
+}
+
+.upgrades {
+  width: 1000px;
+  height: 100px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+h2 {
+  color: white;
+}
+
+  
+
+  
