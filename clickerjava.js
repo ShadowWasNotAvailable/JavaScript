@@ -5,9 +5,11 @@ var EL_muesli_wslave = document.querySelector('#muesli_wslave')
 var EL_muesli_nslave = document.querySelector('#muesli_nslave')
 var EL_muesli_mslave = document.querySelector('#muesli_Mega_slave')
 var EL_booster = document.querySelector('#booster')
+var EL_booster2 = document.querySelector('#booster2')
 var TXT_muesli_value = document.querySelector('#muesli_value')
 var TXT_critical_hit = document.querySelector('#critical')
 var TXT_boost_time = document.querySelector('#boost_left')
+var TXT_boost2_time = document.querySelector('#boost2_left')
 var TXT_Total_dps = document.querySelector('#tot_dps')
 var TXT_Total_dpc = document.querySelector('#tot_dpc')
 var rand = Math.floor(Math.random() * 10)     
@@ -19,6 +21,7 @@ EL_muesli_wslave.addEventListener('click', wslave)
 EL_muesli_nslave.addEventListener('click', nslave)
 EL_muesli_mslave.addEventListener('click', mslave)
 EL_booster.addEventListener('click' , boost)
+EL_booster2.addEventListener('click' , boost2)
 
 
 var muesli_money = 100000000
@@ -57,6 +60,9 @@ var boost_timer = 0
 var boost_cost = 100000
 var boost_dpc = muesli_dpc * 2
 
+var boost2_timer = 0
+var boost2_cost = 1000000
+
 //Total dmg from slaves and total DPC
 var total_dmg = wslave_profit + nslave_profit + mslave_profit
 var total_dpc = muesli_dpc
@@ -69,8 +75,8 @@ EL_muesli_upg2.innerHTML = "Mega upgrade " + upgrade2_ammount + "<br><br>Cost: "
 EL_muesli_wslave.innerHTML = "Wimpy Slave <br>" + "<br>Cost: " + wslave_cost + "<br>DPS: " + wslave_dps
 EL_muesli_nslave.innerHTML = "Normal slave <br>" + "<br>Cost: " + nslave_cost + "<br>DPS: " + nslave_dps
 EL_muesli_mslave.innerHTML = "Mega Slave <br>" + "<br>Cost: " + mslave_cost + "<br>DPS: " + mslave_dps
-EL_booster.innerHTML = "Booster<br>" + "<br>Cost: " + boost_cost + "<br>Detail: 2x DPC"
-
+EL_booster.innerHTML = "DPC Booster<br>" + "<br>Cost: " + boost_cost + "<br>Detail: 2x DPC"
+EL_booster2.innerHTML = "DPS Booster<br>" + "<br>Cost: " + boost2_cost + "<br>Detail: 2x DPS"
         
 function gib_muesli(){
     rand = Math.floor(Math.random() * 10)
@@ -184,39 +190,89 @@ function boost(){
         boost_timer += 150
         muesli_money -= boost_cost
         document.querySelector('#booster').disabled = true;
-        EL_booster.innerHTML = "Booster <br>" + "<br> On cooldown"
+        EL_booster.innerHTML = "DPC Booster <br>" + "<br> On cooldown"
         setTimeout(booster_cooldown , 270000)
+    }
+}
+
+function boost2(){
+    if(muesli_money > boost_cost - 1){
+        boost2_timer += 150
+        muesli_money -= boost2_cost
+        document.querySelector('#booster2').disabled = true;
+        EL_booster2.innerHTML = "DPC Booster <br>" + "<br> On cooldown"
+        setTimeout(booster2_cooldown , 270000)
     }
 }
 
 function slave_profits(){
     if (wowner == true){
-        muesli_money += wslave_profit
-        TXT_muesli_value.innerHTML = muesli_money
+        if(boost2_timer > 0){
+            muesli_money += mslave_profit * 2
+            TXT_muesli_value.innerHTML = muesli_money
+        }else{
+            muesli_money += wslave_profit
+            TXT_muesli_value.innerHTML = muesli_money
+        }
+        
+    }
+    if (nowner == true){
+        if(boost2_timer > 0){
+            muesli_money += mslave_profit * 2
+            TXT_muesli_value.innerHTML = muesli_money
+        }else{
+            muesli_money += nslave_profit * 2
+            TXT_muesli_value.innerHTML = muesli_money 
+        }
+        
     }
     if (mowner == true){
+        if(boost2_timer > 0){
+            muesli_money += mslave_profit * 2
+            TXT_muesli_value.innerHTML = muesli_money
+        }else{
         muesli_money += mslave_profit
         TXT_muesli_value.innerHTML = muesli_money
+        }
+        
     }
 }
 function var_updater(){
-    total_dmg = wslave_profit + nslave_profit + mslave_profit
-    total_dpc = upgrade1_dpc
+    if (boost2_timer > 0){
+        total_dmg = wslave_profit + nslave_profit + mslave_profit * 2
+    }else{
+        total_dmg = wslave_profit + nslave_profit + mslave_profit 
+    }
+    
+    if(boost_timer > 0){
+        total_dpc = muesli_dpc * 2
+    }else{
+        total_dpc = muesli_dpc
+    }
+    
 }
 function txt_updater(){
-    TXT_Total_dpc.innerHTML = "Total DPC: <br>" + muesli_dpc
+    TXT_Total_dpc.innerHTML = "Total DPC: <br>" + total_dpc
     TXT_Total_dps.innerHTML = "Total DPS: <br>" + total_dmg
-    TXT_boost_time.innerHTML = "Boost time left:<br>" + boost_timer
+    TXT_boost_time.innerHTML = "DPC Boost time left:<br>" + boost_timer
+    TXT_boost2_time.innerHTML = "DPS Boost time left:<br>" + boost2_timer
     TXT_muesli_value.innerHTML = muesli_money
 }
 function boost_countdown(){
     if(boost_timer > 0){
         boost_timer -= 1
     }
+    if(boost2_timer > 0){
+        boost2_timer -= 1
+    }
 }
 function booster_cooldown(){
     document.querySelector('#booster').disabled = false;
-    EL_booster.innerHTML = "Booster<br>" + "<br>Cost: " + boost_cost + "<br>Detail: 2x DPC"
+    EL_booster.innerHTML = "DPC Booster<br>" + "<br>Cost: " + boost_cost + "<br>Detail: 2x DPC"
+}
+function booster2_cooldown(){
+    document.querySelector('#booster2').disabled = false;
+    EL_booster2.innerHTML = "DPS Booster<br>" + "<br>Cost: " + boost2_cost + "<br>Detail: 2x DPS"
 }
 setInterval(slave_profits, 0)
 setInterval(var_updater, 0)
